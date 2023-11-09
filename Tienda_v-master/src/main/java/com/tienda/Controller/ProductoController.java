@@ -1,9 +1,11 @@
 package com.tienda.Controller;
 
+import com.tienda.domain.Categoria;
 import com.tienda.domain.Producto;
 import com.tienda.service.CategoriaService;
 import com.tienda.service.ProductoService;
 import com.tienda.service.impl.FirebaseStorageServiceImpl;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,20 +69,19 @@ public class ProductoController {
 
         @GetMapping("/eliminar/{idProducto}")
         public String productoEliminar
-        (Producto producto
-        
-            ) {
+        (Producto producto ) {
         productoService.delete(producto);
             return "redirect:/producto/listado";
         }
 
-        @GetMapping("/modificar/{idProducto}")
-        public String productoModificar
-        (Producto producto, Model model
-        
-            ) {
+      @GetMapping("/modificar/{idProducto}")
+    public String productoModificar(Producto producto, Model model) {
         producto = productoService.getProducto(producto);
-            model.addAttribute("producto", producto);
-            return "/producto/modifica";
-        }
+        model.addAttribute("producto", producto);
+
+        List<Categoria> categorias = categoriaService.getCategorias(false);
+        model.addAttribute("categorias", categorias);
+
+        return "/producto/modifica";
     }
+}

@@ -41,6 +41,7 @@ public class ProductoServiceImpl implements ProductoService{
     @Transactional
     public void delete(Producto producto) {
         productoDao.delete(producto);
+        
     }
     
 }

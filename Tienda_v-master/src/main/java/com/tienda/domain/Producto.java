@@ -27,6 +27,20 @@ public class Producto implements Serializable {
     @ManyToOne
     @JoinColumn(name="id_categoria")
     Categoria categoria;
+    
+    
+    public Long getIdCategoria() {
+        return categoria != null ? categoria.getIdCategoria() : null;
+    }
 
+    public void setIdCategoria(Long idCategoria) {
+        if (categoria == null) {
+            categoria = new Categoria();
+        }
+        categoria.setIdCategoria(idCategoria);
+        
+    }
 }
+
+
 
