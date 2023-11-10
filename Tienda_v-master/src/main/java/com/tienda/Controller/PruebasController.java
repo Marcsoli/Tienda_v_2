@@ -37,6 +37,24 @@ public class PruebasController {
             return "/pruebas/listado";
         }
     
+    @GetMapping("/listado2")
+    public String Listado2(Model model) {
+        var productos = productoService.getProductos(false);
+        model.addAttribute("productos", productos);
+        
+            return "/pruebas/listado2";
+        }
+    
+    @PostMapping("/query1")
+    public String consulta1 (@RequestParam(value="precioInf") double precioInf,
+            @RequestParam(value="precioSub") double precioSub,Model model){
+        var productos = productoService.consultaQuery(precioInf, precioSub);
+        model.addAttribute("productos", productos);
+       
+        return "/pruebas/listado2";
+
+        }
+    
     @GetMapping("/listado/{idCategoria}")
     public String listado(Model model, Categoria categoria) {
         var productos = categoriaService.getCategoria(categoria).getProductos();
@@ -45,6 +63,7 @@ public class PruebasController {
         model.addAttribute("totalProductos", productos.size());
         model.addAttribute("categorias", categorias);
         return "/pruebas/listado";
+        
     }
 
 }
